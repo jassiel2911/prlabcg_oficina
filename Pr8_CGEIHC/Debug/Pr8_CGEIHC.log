@@ -1,0 +1,8 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (Pr6_BJBP.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+  Animacion20232.cpp
+D:\bjbp2\Documents\PracticasLCGeIHC\Pr9_CGEIHC\Pr8_CGEIHC\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+D:\bjbp2\Documents\PracticasLCGeIHC\Pr9_CGEIHC\Pr8_CGEIHC\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+D:\bjbp2\Documents\PracticasLCGeIHC\Pr9_CGEIHC\Pr8_CGEIHC\Animacion20232.cpp(355,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\bjbp2\Documents\PracticasLCGeIHC\Pr9_CGEIHC\Pr8_CGEIHC\Animacion20232.cpp(357,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\bjbp2\Documents\PracticasLCGeIHC\Pr9_CGEIHC\Pr8_CGEIHC\Animacion20232.cpp(548,20): warning C4305: '+=': truncamiento de 'double' a 'float'
+  Pr8_CGEIHC.vcxproj -> D:\bjbp2\Documents\PracticasLCGeIHC\Pr9_CGEIHC\Debug\Pr8_CGEIHC.exe
