@@ -48,6 +48,9 @@ float rotllantaOffset;
 bool avanza;
 float toffsetu = 0.0f;
 float toffsetv = 0.0f;
+
+float movVentilador;
+
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
@@ -75,6 +78,8 @@ Model llanta_DeIz;
 Model llanta_DeDer;
 Model carro_Chasis;
 Model cofre;
+
+Model ventilador; //Añadido Ana
 
 Skybox skybox;
 
@@ -283,15 +288,17 @@ int main()
 	llanta_DeDer = Model();
 	llanta_DeDer.LoadModel("Models/llantaDeDer.obj");
 
+	ventilador = Model();
+	ventilador.LoadModel("Models/Ceiling_Fan.obj"); //Añadido Ana
 
 
 	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_lf.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_dn.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_up.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_bk.tga");
-	skyboxFaces.push_back("Textures/Skybox/cupertin-lake_ft.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_rt.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_lf.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_dn.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_up.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_bk.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_ft.tga");
 
 	skybox = Skybox(skyboxFaces);
 
@@ -377,6 +384,10 @@ int main()
 		}
 		rotllanta += rotllantaOffset * deltaTime;
 
+		/*if (movVentilador < 30.f) {
+			movVentilador =
+		}*/
+
 
 		//Recibir eventos del usuario
 		glfwPollEvents();
@@ -413,12 +424,20 @@ int main()
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
 
-
-
 		glm::mat4 model(1.0);
 		glm::mat4 modelaux(1.0);
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 		glm::vec2 toffset = glm::vec2(0.0f, 0.0f);
+
+		model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(0.0f, 3.0f, -1.0));
+		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+		//model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		//Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		ventilador.RenderModel();
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
@@ -430,7 +449,6 @@ int main()
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 
 		meshList[2]->RenderMesh();
-
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(movCoche, -4.5f, -1.0f));
@@ -522,7 +540,7 @@ int main()
 		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Blackhawk_M.RenderModel();
-
+		
 		//color = glm::vec3(1.0f, 1.0f, 1.0f);
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -1.53f, 0.0f));
