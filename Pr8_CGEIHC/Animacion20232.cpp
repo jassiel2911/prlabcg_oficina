@@ -293,13 +293,21 @@ int main()
 
 
 	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_rt.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_lf.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_dn.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_up.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_bk.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo/miramar_ft.tga");
+	
+	/*skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_rt.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_lf.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_dn.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_up.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_bk.tga");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_ft.tga");*/
 
+	skyboxFaces.push_back("Textures/Skybox/Cielo-N/1.png");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-N/3.png");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-N/6.png");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-N/5.png");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-N/2.png");
+	skyboxFaces.push_back("Textures/Skybox/Cielo-N/4.png");
+	
 	skybox = Skybox(skyboxFaces);
 
 	Material_brillante = Material(4.0f, 256);
@@ -383,11 +391,6 @@ int main()
 			//printf("avanza%f \n ",movCoche);
 		}
 		rotllanta += rotllantaOffset * deltaTime;
-
-		/*if (movVentilador < 30.f) {
-			movVentilador =
-		}*/
-
 
 		//Recibir eventos del usuario
 		glfwPollEvents();
@@ -585,10 +588,6 @@ int main()
 		//Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[4]->RenderMesh();
 		glDisable(GL_BLEND);
-		
-		
-
-
 
 		glUseProgram(0);
 
