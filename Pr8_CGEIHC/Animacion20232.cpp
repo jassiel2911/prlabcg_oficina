@@ -13,7 +13,6 @@ Adicional.- Texturizado con transparencia usando Blending: Requerimos dibujar lo
 #include <cmath>
 #include <vector>
 #include <math.h>
-
 #include <glew.h>
 #include <glfw3.h>
 
@@ -51,6 +50,8 @@ float toffsetv = 0.0f;
 
 float movVentilador;
 
+bool isDia = false;
+
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
@@ -83,6 +84,9 @@ Model ventilador; //Añadido Ana
 
 Skybox skybox;
 
+std::vector<std::string> skyboxFacesD;
+std::vector<std::string> skyboxFacesN;
+
 //materiales
 Material Material_brillante;
 Material Material_opaco;
@@ -105,7 +109,13 @@ static const char* vShader = "shaders/shader_light.vert";
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
 
-
+void cambioSkyBox (bool* keys){
+	if (keys[GLFW_KEY_1]) {
+		isDia = !isDia;
+		skybox = Skybox(isDia ? skyboxFacesD : skyboxFacesN); //Para cambiar de Skybox
+		//Aquí añadir decremento de iluminación ambiental
+	}
+}
 
 //cálculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
@@ -223,16 +233,12 @@ void CreateObjects()
 
 }
 
-
 void CreateShaders()
 {
 	Shader *shader1 = new Shader();
 	shader1->CreateFromFiles(vShader, fShader);
 	shaderList.push_back(*shader1);
 }
-
-
-
 
 int main()
 {
@@ -291,28 +297,26 @@ int main()
 	ventilador = Model();
 	ventilador.LoadModel("Models/Ceiling_Fan.obj"); //Añadido Ana
 
+	//Skybox Día
+	skyboxFacesD.push_back("Textures/Skybox/Cielo-D/miramar_rt.tga");
+	skyboxFacesD.push_back("Textures/Skybox/Cielo-D/miramar_lf.tga");
+	skyboxFacesD.push_back("Textures/Skybox/Cielo-D/miramar_dn.tga");
+	skyboxFacesD.push_back("Textures/Skybox/Cielo-D/miramar_up.tga");
+	skyboxFacesD.push_back("Textures/Skybox/Cielo-D/miramar_bk.tga");
+	skyboxFacesD.push_back("Textures/Skybox/Cielo-D/miramar_ft.tga");
 
-	std::vector<std::string> skyboxFaces;
-	
-	/*skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_rt.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_lf.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_dn.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_up.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_bk.tga");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-D/miramar_ft.tga");*/
+	//Skybox Noche
+	skyboxFacesN.push_back("Textures/Skybox/Cielo-N/1.png");
+	skyboxFacesN.push_back("Textures/Skybox/Cielo-N/3.png");
+	skyboxFacesN.push_back("Textures/Skybox/Cielo-N/6.png");
+	skyboxFacesN.push_back("Textures/Skybox/Cielo-N/5.png");
+	skyboxFacesN.push_back("Textures/Skybox/Cielo-N/2.png");
+	skyboxFacesN.push_back("Textures/Skybox/Cielo-N/4.png");
 
-	skyboxFaces.push_back("Textures/Skybox/Cielo-N/1.png");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-N/3.png");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-N/6.png");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-N/5.png");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-N/2.png");
-	skyboxFaces.push_back("Textures/Skybox/Cielo-N/4.png");
-	
-	skybox = Skybox(skyboxFaces);
+	skybox = Skybox(skyboxFacesD);
 
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
-
 
 	//luz direccional, sólo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
@@ -371,7 +375,7 @@ int main()
 		deltaTime = now - lastTime;
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
-
+		
 		if (avanza) 
 		{
 			if (movCoche < 30.0f && movCoche > -300.0f) 
@@ -394,8 +398,9 @@ int main()
 
 		//Recibir eventos del usuario
 		glfwPollEvents();
-		camera.keyControl(mainWindow.getsKeys(), deltaTime);
+		camera.keyControl(mainWindow.getsKeys(), deltaTime); 
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+		cambioSkyBox(mainWindow.getsKeys());
 
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
