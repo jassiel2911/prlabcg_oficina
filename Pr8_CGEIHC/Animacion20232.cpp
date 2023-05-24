@@ -66,12 +66,14 @@ Texture AgaveTexture;
 Texture FlechaTexture;
 Texture texcar;
 Texture texwheel;
+Texture FennekoText;
 
 Model Kitt_M;
 Model Llanta_M;
 Model Camino_M;
 Model Blackhawk_M;
 Model Dado_M;
+Model Fenneko;
 
 Model llanta_AIz;
 Model llanta_ADer;
@@ -276,6 +278,9 @@ int main()
 	texwheel = Texture("Textures/tex_wheel.tga");
 	texwheel.LoadTextureA();
 
+	FennekoText = Texture("Textures/Fenneko_Color.png");
+	FennekoText.LoadTextureA();
+
 	carro_Chasis = Model();
 	carro_Chasis.LoadModel("Models/carro_chasis.obj");
 
@@ -296,6 +301,9 @@ int main()
 
 	ventilador = Model();
 	ventilador.LoadModel("Models/Ceiling_Fan.obj"); //Añadido Ana
+
+	Fenneko = Model();
+	Fenneko.LoadModel("Models/Fenneko.fbx");
 
 	//Skybox Día
 	skyboxFacesD.push_back("Textures/Skybox/Cielo-D/miramar_rt.tga");
@@ -548,7 +556,142 @@ int main()
 		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Blackhawk_M.RenderModel();
+
+
+
+		///////////////////////////////////////////////////////////////////////////////////////////Paredes
+
+		//Borde izquierdo completo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-100.0f, 3.0f, -1.0));
+		model = glm::scale(model, glm::vec3(30.0f, 30.0f, 150.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
+
+
+		//Borde de atras completo
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 3.0f, -75.0));
+		model = glm::scale(model, glm::vec3(200.0f, 30.0f, 150.0f));
+		model = glm::rotate(model, -270 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
+
+
+		//PAred de en medio perpendicular a la camara, apunta a X
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-62.5f, 3.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(75.0f, 30.0f, 1.0f));
+		model = glm::rotate(model, -270 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-62.5f, 3.0f, -0.01f));
+		model = glm::scale(model, glm::vec3(75.0f, 30.0f, 1.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
+
+		//Pared central, apunta a Z borde de abajo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-25.0f, 3.0f, 60.0));
+		model = glm::scale(model, glm::vec3(30.0f, 30.0f, 25.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-25.01f, 3.0f, 60.0));
+		model = glm::scale(model, glm::vec3(30.0f, 30.0f, 25.0f));
+		model = glm::rotate(model, -270 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
+
+
+		//Pared central, apunta a Z borde de medio
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-25.0f, 3.0f, 5.0f));
+		model = glm::scale(model, glm::vec3(30.0f, 30.0f, 45.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-25.01f, 3.0f, 5.0f));
+		model = glm::scale(model, glm::vec3(30.0f, 30.0f, 45.0f));
+		model = glm::rotate(model, -270 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
 		
+
+		//Pared central, apunta a Z borde de arriba
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-25.0f, 3.0f, -60.0f));
+		model = glm::scale(model, glm::vec3(30.0f, 30.0f, 30.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
+
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-25.01f, 3.0f, -60.0f));
+		model = glm::scale(model, glm::vec3(30.0f, 30.0f, 30.0f));
+		model = glm::rotate(model, -270 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		meshList[4]->RenderMesh();
+
+		/////////////////////////////////////////////////////////////////// Terminan paredes
+		
+
+		/////////////////////////////////////////////////////////////////////////////////////////Personajes
+
+		//Fenneko
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(0.0f, 3.0f, -1.0));
+		model = glm::scale(model, glm::vec3(10.05f, 10.05f, 10.05f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//color = glm::vec3(0.0f, 1.0f, 0.0f);
+		//glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		FennekoText.UseTexture();
+		Fenneko.RenderModel();
+
+		///////////////////////////////////////////////////////////////////////////////////////// Terminan Personajes
+
 		//color = glm::vec3(1.0f, 1.0f, 1.0f);
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -1.53f, 0.0f));
