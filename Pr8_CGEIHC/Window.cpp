@@ -8,6 +8,7 @@ Window::Window()
 	{
 		keys[i] = 0;
 	}
+
 }
 Window::Window(GLint windowWidth, GLint windowHeight)
 {
@@ -18,6 +19,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	{
 		keys[i] = 0;
 	}
+	activaCamara = 0;
 }
 int Window::Initialise()
 {
@@ -113,6 +115,16 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 		theWindow-> muevex -= 1.0;
 	}
 
+	if (key == GLFW_KEY_N)//Activa camaraIsometrica
+	{
+		theWindow->activaCamara = 1;
+		printf("\nSe activo camara Isometrica.\n");
+	}
+	if (key == GLFW_KEY_M)//Activa camaraNormal
+	{
+		theWindow->activaCamara = 0;
+		printf("\nSe activo camara normal.\n");
+	}
 
 
 	if (key >= 0 && key < 1024)
