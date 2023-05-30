@@ -14,6 +14,7 @@ public:
 	GLfloat getXChange();
 	GLfloat getYChange();
 	GLfloat getmuevex() { return muevex; }
+	GLint getactivaCamara() { return activaCamara; }
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
 	bool* getsKeys() { return keys; }
@@ -22,7 +23,7 @@ public:
 	~Window();
 private: 
 	GLFWwindow *mainWindow;
-	GLint width, height;
+	GLint width, height, activaCamara;
 	bool keys[1024];
 	GLint bufferWidth, bufferHeight;
 	void createCallbacks();
